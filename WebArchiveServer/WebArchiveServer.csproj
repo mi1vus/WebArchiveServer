@@ -24,7 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationInsightsResourceId>/subscriptions/2dd70ff0-3674-4d36-81b2-5eb3a779b546/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/WebApplication6</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/2dd70ff0-3674-4d36-81b2-5eb3a779b546/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/WebArchiveServer</ApplicationInsightsResourceId>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
