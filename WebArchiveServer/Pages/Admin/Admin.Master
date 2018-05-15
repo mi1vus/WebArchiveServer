@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="WebArchiveServer.Pages.Admin.Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="~/Content/Admin.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <h1>WebArchiveServer: админ-панель</h1>
+        <div class="adminContent">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <!--<div id="nav">
+        <a href="<%//= OrdersUrl %>">Управление заказами</a>
+        <a href="<%//= GamesUrl %>">Управление каталогом игр</a>
+    </div>-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var uri = 'api/terminals';
+
+    $(document).ready(function () {
+        // Send an AJAX request
+        $.getJSON(uri)
+            .done(function (data) {
+            // On success, 'data' contains a list of products.
+            $.each(data, function (key, item) {
+                // Add a list item for the product.
+                $('<li>', { text: formatItem(item) }).appendTo($('#products'));
+            });
+            });
+    });
+
+    function formatItem(item) {
+        return item.Name + ': $' + item.Price;
+    }
+
+    function find() {
+        var id = $('#prodId').val();
+        $.getJSON(uri + '/' + id)
+            .done(function (data) {
+            $('#product').text(formatItem(data));
+            })
+            .fail(function (jqXHR, textStatus, err) {
+            $('#product').text('Error: ' + err);
+            });
+    }
+    </script>
+
+</body>
+</html>
