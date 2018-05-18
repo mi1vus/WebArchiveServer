@@ -21,7 +21,7 @@ namespace WebArchiveServer.Models
     public class Order
     {
         public int Id { get; set; }
-        public string RNN { get; set; }
+        public string Rnn { get; set; }
         public int IdState { get; set; }
         public string StateName { get; set; }
         public int IdTerminal { get; set; }

@@ -93,32 +93,72 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`order_details` (
   FOREIGN KEY (`id_detail`) REFERENCES `terminal_archive`.`details`(`id`)
 );
 
-INSERT INTO `terminal_archive`.`terminal_groups` (`name`) VALUES 
-('Тестовая');
+CREATE TABLE IF NOT EXISTS `terminal_archive`.`user_groups` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `terminal_archive`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_group` INT NOT NULL,
+  `name` VARCHAR(150) NOT NULL,
+  `pass` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `users_name_UNIQUE` (`name`  ASC),
+  FOREIGN KEY (`id_group`) REFERENCES `terminal_archive`.`user_groups`(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `terminal_archive`.`history` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_terminal` INT NOT NULL,
+  `id_order` INT,
+  `id_state` INT NOT NULL,
+  `trace` TEXT,
+  `msg` TEXT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_terminal`) REFERENCES `terminal_archive`.`terminals`(`id`),
+  FOREIGN KEY (`id_order`) REFERENCES `terminal_archive`.`orders`(`id`),
+  FOREIGN KEY (`id_state`) REFERENCES `terminal_archive`.`order_states`(`id`)
+);
+
+INSERT INTO `terminal_archive`.`terminal_groups` (`id`,`name`) VALUES 
+('1', 'Тестовая');
 
 INSERT INTO `terminal_archive`.`terminals` (`id_hasp`, `id_group`, `address`, `name`) VALUES 
 ('1', '1', 'Исследователей, 15', 'Тестовый');
 
-INSERT INTO `terminal_archive`.`order_fuels` (`name`) VALUES 
-('-'),
-('95'),
-('98'),
-('80'),
-('-'),
-('92');
+INSERT INTO `terminal_archive`.`order_fuels` (`id`,`name`) VALUES 
+('1', '-'),
+('2', '95'),
+('3', '98'),
+('4', '80'),
+('5', '-'),
+('6', '92');
 
-INSERT INTO `terminal_archive`.`order_payment_types` (`name`) VALUES 
-('наличные'), 
-('карты'), 
-('топливные карты');
+INSERT INTO `terminal_archive`.`order_payment_types` (`id`,`name`) VALUES 
+('1', 'наличные'), 
+('2', 'карты'), 
+('3', 'топливные карты');
 
-INSERT INTO `terminal_archive`.`order_payment_types` (`name`) VALUES 
-('создан'),
-('готов к оплате'),
-('оплачен'),
-('установлен на ТРК'),
-('выполнен'),
-('выполнен и пересчитан');
+INSERT INTO `terminal_archive`.`order_payment_types` (`id`,`name`) VALUES 
+('1', 'создан'),
+('2', 'готов к оплате'),
+('3', 'оплачен'),
+('4', 'установлен на ТРК'),
+('5', 'выполнен'),
+('6', 'выполнен и пересчитан'),
+('1001', 'критическая ошибка'),
+('1002', 'серьезная ошибка'),
+('1003', 'ошибка'),
+('1004', 'предупреждение');
+
+INSERT INTO `terminal_archive`.`user_groups` (`id`,`name`) VALUES 
+('1', 'Admin'),
+('2', 'Write'),
+('3', 'Read'),
+('4', 'None');
 
 SELECT t.`id`, t.id_hasp,  g.`name` AS `группа` ,  t.`address` , t.`name`, p.id AS `id параметра`, p.path AS `путь параметра`, p.name AS `имя параметра` ,
 tp.value AS `значение параметра`, tp.last_edit_date, tp.save_date

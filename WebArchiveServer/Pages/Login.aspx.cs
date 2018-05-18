@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Security;
+using WebArchiveServer.Helpers;
 
 namespace WebArchiveServer.Pages
 {
@@ -7,22 +8,22 @@ namespace WebArchiveServer.Pages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (IsPostBack)
             {
-                string name = Request.Form["name"];
-                string password = Request.Form["password"];
-                if (name != null && password != null
-                        && FormsAuthentication.Authenticate(name, password))
+                var name = Request.Form["name"];
+                var password = Request.Form["password"];
+
+                if (DbHelper.IsAuthorizeUser(name, password))
                 {
                     FormsAuthentication.SetAuthCookie(name, false);
+
                     var url = Request["ReturnUrl"];
                     Response.Redirect(url ?? "~/Pages/Index.aspx");
                 }
                 else
                 {
                     ModelState.AddModelError("fail", "Логин или пароль не правильны." +
-                        "Пожалуйста введите данные заново");
+                                                        "Пожалуйста введите данные заново");
                 }
             }
             else

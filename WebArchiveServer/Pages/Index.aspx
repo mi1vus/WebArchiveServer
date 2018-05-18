@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="WebArchiveServer.Pages.Index" %>
-<%@ Import Namespace="WebArchiveServer.Models" %>
+<%@ Import Namespace="WebArchiveServer.Helpers" %>
 
 <!DOCTYPE html>
 
@@ -15,7 +15,7 @@
                 <ul id="products" />
                 <% 
                     var u = User;
-                    Response.Write(u.Identity.IsAuthenticated ? $"Пользователь: {u.Identity.Name}" : $"Анонимный пользователь!");
+                    Response.Write(s: u.Identity.IsAuthenticated ? $"Пользователь: {u.Identity.Name} Admin:{DbHelper.UserInRole(u.Identity.Name, "Admin")}" : $"Анонимный пользователь!");
                 %>
             </div>
             <button type="submit">Выйти</button>
@@ -31,7 +31,7 @@
                         {
                             Response.Write(
                                 "<tr><th>Название терминала</th><th>Адрес</th><th>Hasp id</th><th>Заказы</th></tr>");
-                            foreach (Terminal terminal in terminals)
+                            foreach (var terminal in terminals)
                             {
                                 Response.Write(String.Format(@"
                             <tr><td>{0}</td><td>{1}</td><td>{2:c}</td><td><a href='/Pages/Index.aspx?idT={3}'>Детально</a></td></tr>",
@@ -44,7 +44,7 @@
                     }
                     else
                     {
-                        WebArchiveServer.Models.Terminal terminal = GetTerminalOrders(id);
+                        var terminal = GetTerminalOrders(id);
                         if (terminal != null)
                         {
                             Response.Write(String.Format(@"
@@ -56,7 +56,7 @@
                                 terminal.Name, terminal.Address, terminal.IdHasp));
                             Response.Write(
                                 "<tr><th>Id заказа</th><th>Статус заказа</th><th>сумма</th></tr>");
-                            foreach (Order order in terminal.Orders.Values)
+                            foreach (var order in terminal.Orders.Values)
                             {
                                 Response.Write(String.Format(@"
                             <tr><td>{0}</td><td>{1}</td><td>{2:c}</td></tr>",
@@ -77,7 +77,7 @@
             int id;
             if (!int.TryParse(Request.QueryString["idT"], out id))
             {
-                for (int i = 1; i <= MaxPageTerminal; i++)
+                for (var i = 1; i <= MaxPageTerminal; i++)
                 {
                     Response.Write(
                         String.Format("<a href='/Pages/Index.aspx?pageT={0}' {1}>{2} </a>",
@@ -85,7 +85,7 @@
                 }
             }
             else
-                for (int i = 1; i <= MaxPageOrder; i++)
+                for (var i = 1; i <= MaxPageOrder; i++)
                 {
                     Response.Write(
                         String.Format("<a href='/Pages/Index.aspx?pageO={0}&idT={3}' {1}>{2}</a>",
