@@ -11,6 +11,7 @@ namespace WebArchiveServer.Pages
     public partial class Index : System.Web.UI.Page
     {
         private int PageSize = 2;
+        public static string UserName;
 
         protected int CurrentPageTerminal
         {
@@ -35,7 +36,7 @@ namespace WebArchiveServer.Pages
         {
             get
             {
-                decimal count = DbHelper.TerminalsCount();
+                decimal count = DbHelper.TerminalsCount(UserName);
                 if (count <= 0)
                     return 1;
 
@@ -49,7 +50,7 @@ namespace WebArchiveServer.Pages
                 int id;
                 if (int.TryParse(Request.QueryString["idT"], out id))
                 {
-                    decimal count = DbHelper.OrdersCount(id);
+                    decimal count = DbHelper.OrdersCount(UserName, id);
                     if (count <= 0)
                         return 1;
 
@@ -62,27 +63,30 @@ namespace WebArchiveServer.Pages
         
         public Index()
         {
+            //UserName = userName;
             //UpdateTerminals();
         }
 
         protected IEnumerable<Terminal> GetAllTerminals()
         {
-            DbHelper.UpdateTerminals(CurrentPageTerminal, PageSize);
-            return DbHelper.Terminals.Values;
+            if (DbHelper.UpdateTerminals(UserName, CurrentPageTerminal, PageSize))
+                return DbHelper.Terminals.Values;
+            else
+                return null;
         }
 
         protected Terminal GetTerminalOrders(int idTerminal)
         {
-            var u = User;
-            DbHelper.UpdateTerminalOrders(idTerminal, CurrentPageTerminal, CurrentPageOrder, PageSize);
-            //var terminal = terminals.FirstOrDefault((p) => p.Key == idTerminal).Value.ToArray();
-            return DbHelper.Terminals.ContainsKey(idTerminal) ? DbHelper.Terminals[idTerminal] : null;
+            if (DbHelper.UpdateTerminalOrders(UserName, idTerminal, CurrentPageTerminal, CurrentPageOrder, PageSize))
+                return DbHelper.Terminals.ContainsKey(idTerminal) ? DbHelper.Terminals[idTerminal] : null;
+            else
+                return null;
         }
 
         protected Terminal GetTerminalParameters(int idTerminalP)
         {
             var u = User;
-            DbHelper.UpdateTerminalParameters(idTerminalP);
+            DbHelper.UpdateTerminalParameters(UserName, idTerminalP);
             //var terminal = terminals.FirstOrDefault(p => p.Key == idTerminalP).Value;
             return DbHelper.Terminals.ContainsKey(idTerminalP) ? DbHelper.Terminals[idTerminalP] : null;
         }

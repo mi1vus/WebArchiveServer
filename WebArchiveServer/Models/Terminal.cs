@@ -10,12 +10,13 @@ namespace WebArchiveServer.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int IdGroup { get; set; }
-        public string GroupName { get; set; }
+        //public int IdGroup { get; set; }
+        //public string GroupName { get; set; }
         public string Address { get; set; }
         public string IdHasp { get; set; }
         public Dictionary<int, Order> Orders { get; set; }
         public List<Parameter> Parameters { get; set; }
+        public Dictionary<int, Group> Groups { get; set; }
     }
 
     public class Order
@@ -56,5 +57,10 @@ namespace WebArchiveServer.Models
         public string Value { get; set; }
         public DateTime LastEditTime { get; set; }
         public DateTime SaveTime { get; set; }
+    }
+    public class Group
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
