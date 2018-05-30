@@ -17,7 +17,6 @@ namespace WebTerminalServer.Controllers
         {
         }
 
-        [HttpGet]
         [HttpPost]
         public bool AddHistory(
             string HaspId, string RRN,
@@ -25,6 +24,7 @@ namespace WebTerminalServer.Controllers
             string User, string Pass
         )
         {
+            
             return DbHelper.AddHistory(HaspId, RRN,Trace , Msg, ErrorLevel, User, Pass);
         }
 

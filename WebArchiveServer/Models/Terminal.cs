@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Http.Routing.Constraints;
@@ -9,14 +10,23 @@ namespace WebArchiveServer.Models
     public class Terminal
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Пожалуйста введите имя терминала!")]
         public string Name { get; set; }
         //public int IdGroup { get; set; }
         //public string GroupName { get; set; }
+        [Required(ErrorMessage = "Пожалуйста введите адрес терминала!")]
         public string Address { get; set; }
+        [Required(ErrorMessage = "Пожалуйста введите код терминала!")]
         public string IdHasp { get; set; }
         public Dictionary<int, Order> Orders { get; set; }
         public List<Parameter> Parameters { get; set; }
         public Dictionary<int, Group> Groups { get; set; }
+    }
+
+    public class TerminalGroup
+    {
+        public int IdTerminal { get; set; }
+        public int IdGroup { get; set; }
     }
 
     public class Order
@@ -40,6 +50,7 @@ namespace WebArchiveServer.Models
         public decimal PreSumm { get; set; }
         public decimal Summ { get; set; }
     }
+
     public class AdditionalParameter
     {
         public int Id { get; set; }
@@ -58,6 +69,7 @@ namespace WebArchiveServer.Models
         public DateTime LastEditTime { get; set; }
         public DateTime SaveTime { get; set; }
     }
+
     public class Group
     {
         public int Id { get; set; }

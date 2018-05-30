@@ -7,28 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebArchiveServer.Pages
-{
+namespace WebArchiveServer.Pages {
     
     
-    public partial class Login {
+    public partial class EditTerminalGroups {
         
         /// <summary>
-        /// form1 control.
+        /// checkoutForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl checkoutForm;
         
         /// <summary>
-        /// ValidationSummary1 control.
+        /// checkoutMessageOK control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl checkoutMessageOK;
+        
+        /// <summary>
+        /// checkoutMessageNO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl checkoutMessageNO;
     }
 }

@@ -9,6 +9,6 @@
 
 namespace WebArchiveServer.Pages
 {
-    public partial class Index {
+    public partial class TerminalInfo {
     }
 }

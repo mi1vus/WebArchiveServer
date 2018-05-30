@@ -1,20 +1,36 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Common.Master.cs" Inherits="WebTerminalServer.Pages.Site1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Common.Master.cs" Inherits="WebArchiveServer.Pages.Common"%>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>TerminalArchive</title>
+    <link rel="stylesheet" href="/Content/Styles.css" />
+    <%: System.Web.Optimization.Scripts.Render("~/bundles/validation") %>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        <div id="header">
+            <div class="title">Мониторинг терминалов </div>
+        </div>
+        <div class="loginContainer">
+            <div>
+                <asp:ContentPlaceHolder ID="user" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <button type="submit" name="submitButton" value="SignOut">Выйти</button>
+        </div>
+        <div id="categories">
+            <GS:PagesLinks runat="server" />
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="content" runat="server">
         
-        </asp:ContentPlaceHolder>
-    </div>
+            </asp:ContentPlaceHolder>
+        </div>
     </form>
+
 </body>
 </html>

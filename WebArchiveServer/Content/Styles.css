@@ -2,6 +2,19 @@
     font-family: Cambria, Georgia, "Times New Roman"; 
     margin: 0;
 }
+
+table {
+/*width: 300px;  Ширина таблицы */
+border-collapse: collapse; /* Убираем двойные линии между ячейками */
+}
+td, th {
+padding: 3px; /* Поля вокруг содержимого таблицы */
+border: 1px solid black; /* Параметры рамки */
+}
+th {
+background: #b0e0e6; /* Цвет фона */
+}
+
 div#header div.title, div.item h3, div.item h4, div.pager a {
     font: bold 1em "Arial Narrow", "Franklin Gothic Medium", Arial;
 }
@@ -117,7 +130,7 @@ div#cartSummary a {
 
 .checkout label { 
     display: inline-block; 
-    width: 60px; 
+    width: 120px; 
     text-align: right;
 }
 .checkout div input { 

@@ -20,14 +20,16 @@ DROP TABLE IF EXISTS `terminal_archive`.`groups`;
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`groups` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`terminals` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `id_hasp` VARCHAR(20) NOT NULL,
-  `address` VARCHAR(20) NOT NULL,
-  `name` VARCHAR(150) NOT NULL,
+  `id_hasp` VARCHAR(50) NOT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_hasp_UNIQUE` (`id_hasp` ASC)
 );  
@@ -47,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`parameters` (
   `path` VARCHAR(150) NOT NULL,
   `name` VARCHAR(150) NOT NULL,
   `description` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
@@ -64,18 +67,21 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`terminal_parameters` (
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`order_fuels` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`order_payment_types` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`order_states` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
@@ -93,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`orders` (
   `quantity` DECIMAL(5,2) UNSIGNED NOT NULL,
   `pre_summ` DECIMAL(5,2) UNSIGNED NOT NULL,
   `summ` DECIMAL(5,2) UNSIGNED NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `terminal_RNN_UNIQUE` (`id_terminal` ASC,`RNN` ASC),
   FOREIGN KEY (`id_terminal`) REFERENCES `terminal_archive`.`terminals`(`id`),
@@ -104,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`orders` (
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`details` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
@@ -122,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_group` INT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_group`) REFERENCES `terminal_archive`.`groups`(`id`)
 );
@@ -129,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`roles` (
 CREATE TABLE IF NOT EXISTS `terminal_archive`.`rights` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`)
 );
 
@@ -147,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`users` (
   `id_role` INT NOT NULL,
   `name` VARCHAR(150) NOT NULL,
   `pass` VARCHAR(32) NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `users_name_UNIQUE` (`name`  ASC),
   FOREIGN KEY (`id_role`) REFERENCES `terminal_archive`.`roles`(`id`)
@@ -160,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `terminal_archive`.`history` (
   `id_state` INT NOT NULL,
   `trace` TEXT,
   `msg` TEXT NOT NULL,
+  `delete` BOOLEAN NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_terminal`) REFERENCES `terminal_archive`.`terminals`(`id`),
   FOREIGN KEY (`id_order`) REFERENCES `terminal_archive`.`orders`(`id`),
